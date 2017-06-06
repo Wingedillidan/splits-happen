@@ -5,16 +5,17 @@ package main.java;
  */
 public class Frame {
 
-    private int ballOne;
-    private int ballTwo;
+    private int[] balls;
     private int totalBalls;
-    private String flag;
 
-    public Frame(String flag, int ballOne, int ballTwo) {
-        this.flag = flag;
-        this.ballOne = ballOne;
-        this.ballTwo = ballTwo;
-        this.totalBalls = ballOne + ballTwo;
+    public Frame(int[] balls) {
+
+        int total = 0;
+        for (int i: balls) {
+            total += i;
+        }
+
+        this.totalBalls = total;
     }
 
     // A single string input indicates an input for parse
@@ -25,48 +26,34 @@ public class Frame {
 
     private void parse(String parseMe) {
         if (parseMe == "X") {
-            this.flag = "strike";
-            this.ballOne = 10;
-            this.ballTwo = 0;
+            this.balls = new int[]{10};
         } else {
-            boolean first = true;
-            for (char c: parseMe) {
-                if (c == '-') {
-                    // Well then... the way the balls are represented does not work for this situation =c
+            int[] result = new int[parseMe.length()];
+
+            for (int i = 0; i < parseMe.length(); i++) {
+                if (parseMe.charAt(i) == '-') {
+                    result[i] = 0;
+                } else if (parseMe.charAt(i) == '/') {
+                    result[i] = 10 - result[i-1];
                 }
             }
         }
     }
 
-    public int getBallOne() {
-        return ballOne;
+    public int[] getBalls() {
+        return balls;
     }
 
-    public void setBallOne(int ballOne) {
-        this.ballOne = ballOne;
+    public void setBalls(int[] balls) {
+        this.balls = balls;
     }
 
-    public int getBallTwo() {
-        return ballTwo;
+    public int getTotalBalls() {
+        return totalBalls;
     }
 
-    public void setBallTwo(int ballTwo) {
-        this.ballTwo = ballTwo;
+    public void setTotalBalls(int totalBalls) {
+        this.totalBalls = totalBalls;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public String getFlag() {
-        return flag;
-    }
-
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
 }
