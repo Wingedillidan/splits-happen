@@ -34,11 +34,9 @@ public class Frame {
                     result[i] = 0;
                 } else if (parseMe.charAt(i) == '/') {
                     // Check spare
-                    // Luckily I don't have to worry about validation ;)
-                    result[i] = 10 - result[i-1];
+                    result[i] = 10 - result[i-1]; // Out of scope #1 assumption
                 } else {
-                    // Same thing!
-                    String ballString = Character.toString(parseMe.charAt(i));
+                    String ballString = Character.toString(parseMe.charAt(i)); // Out of scope #1 assumption
                     result[i] = Integer.parseInt(ballString);
                 }
             }
