@@ -8,15 +8,18 @@ public class Frame {
     // Each array position represents one ball down the lane
     private int[] balls;
     private int rawTotal;
+    private int numPins;
 
-    public Frame(int[] balls) {
+    public Frame(int[] balls, int numPins) {
         this.balls = balls;
+        this.numPins = numPins;
         this.calcTotal();
     }
 
-    // Just a string indicates an input for parse
-    public Frame(String parseMe) {
+    // String input indicates parse requirement
+    public Frame(String parseMe, int numPins) {
         // Parse logic separated in case of future changes to this type of constructor
+        this.numPins = numPins;
         this.parse(parseMe);
         this.calcTotal();
     }
@@ -30,10 +33,10 @@ public class Frame {
                 result[i] = 0;
             } else if (parseMe.charAt(i) == 'X') {
                 // Check strike
-                result[i] = 10;
+                result[i] = this.numPins;
             } else if (parseMe.charAt(i) == '/') {
                 // Check spare
-                result[i] = 10 - result[i-1]; // Out of scope #1 assumption
+                result[i] = this.numPins - result[i-1]; // Out of scope #1 assumption
             } else {
                 String ballString = Character.toString(parseMe.charAt(i)); // Out of scope #1 assumption
                 result[i] = Integer.parseInt(ballString);
@@ -69,4 +72,11 @@ public class Frame {
         this.rawTotal = rawTotal;
     }
 
+    public int getNumPins() {
+        return numPins;
+    }
+
+    public void setNumPins(int numPins) {
+        this.numPins = numPins;
+    }
 }

@@ -23,7 +23,7 @@ public class Game {
             // Build string for a single frame
             if (input.charAt(i) == 'X' && i + 2 < input.length() - 1) {
                 // Non-tenth frame strikes are single frames
-                result[currentFrame] = new Frame("X");
+                result[currentFrame] = new Frame("X", this.numPins);
                 currentFrame++;
             } else {
                 stringFrame += input.charAt(i);
@@ -37,7 +37,7 @@ public class Game {
 
             // Make the frame
             if (stringFrame.length() >= 2) {
-                result[currentFrame] = new Frame(stringFrame);
+                result[currentFrame] = new Frame(stringFrame, this.numPins);
                 currentFrame++;
                 stringFrame = "";
             }
