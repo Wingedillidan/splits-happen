@@ -20,18 +20,21 @@ public class Game {
         int currentFrame = 0;
 
         for (int i = 0; i < input.length(); i++) {
+            // Build string for a single frame
             if (input.charAt(i) == 'X' && i + 2 < input.length() - 1) {
+                // Non-tenth frame strikes are single frames
                 result[currentFrame] = new Frame("X");
                 currentFrame++;
             } else {
                 stringFrame += input.charAt(i);
             }
 
-            // Check for 10th frame
+            // Check for 10th frame, then finish the string
             if (i + 1 == input.length() - 1) {
                 stringFrame += input.charAt(i + 1);
-                i++;
+                i++; // Make this iteration the last
             }
+
             // Make the frame
             if (stringFrame.length() >= 2) {
                 result[currentFrame] = new Frame(stringFrame);
