@@ -5,7 +5,7 @@ package main.java;
  */
 public class SplitsHappen {
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         Game game;
 
         String testOne = "XXXXXXXXXXXX";
