@@ -96,4 +96,19 @@ public class Game {
         return result;
     }
 
+    public Frame[] getFrames() {
+        return frames;
+    }
+
+    public void setFrames(Frame[] frames) {
+        this.frames = frames;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 }

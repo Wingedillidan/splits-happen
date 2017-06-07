@@ -11,7 +11,9 @@ public class SplitsHappen {
 
         for (String s: test) {
             game = new Game(s);
+            game.calcGame();
             System.out.println(game.toString());
+            System.out.println("Total: " + game.getTotal());
         }
     }
 

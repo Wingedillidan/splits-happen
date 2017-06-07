@@ -7,7 +7,7 @@ public class Frame {
 
     // Each array position represents one ball down the lane
     private int[] balls;
-    private int totalBalls;
+    private int rawTotal;
 
     public Frame(int[] balls) {
         this.balls = balls;
@@ -50,7 +50,7 @@ public class Frame {
             total += i;
         }
 
-        this.totalBalls = total;
+        this.rawTotal = total;
     }
 
     public int[] getBalls() {
@@ -61,12 +61,12 @@ public class Frame {
         this.balls = balls;
     }
 
-    public int getTotalBalls() {
-        return totalBalls;
+    public int getRawTotal() {
+        return rawTotal;
     }
 
-    public void setTotalBalls(int totalBalls) {
-        this.totalBalls = totalBalls;
+    public void setRawTotal(int rawTotal) {
+        this.rawTotal = rawTotal;
     }
 
 }
