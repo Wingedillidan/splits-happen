@@ -22,27 +22,25 @@ public class Frame {
     }
 
     private void parse(String parseMe) {
-        if (parseMe.equals("X")) {
-            // Check strike
-            this.balls = new int[]{10};
-        } else {
-            int[] result = new int[parseMe.length()];
+        int[] result = new int[parseMe.length()];
 
-            for (int i = 0; i < parseMe.length(); i++) {
-                if (parseMe.charAt(i) == '-') {
-                    // Check miss
-                    result[i] = 0;
-                } else if (parseMe.charAt(i) == '/') {
-                    // Check spare
-                    result[i] = 10 - result[i-1]; // Out of scope #1 assumption
-                } else {
-                    String ballString = Character.toString(parseMe.charAt(i)); // Out of scope #1 assumption
-                    result[i] = Integer.parseInt(ballString);
-                }
+        for (int i = 0; i < parseMe.length(); i++) {
+            if (parseMe.charAt(i) == '-') {
+                // Check miss
+                result[i] = 0;
+            } else if (parseMe.charAt(i) == 'X') {
+                // Check strike
+                result[i] = 10;
+            } else if (parseMe.charAt(i) == '/') {
+                // Check spare
+                result[i] = 10 - result[i-1]; // Out of scope #1 assumption
+            } else {
+                String ballString = Character.toString(parseMe.charAt(i)); // Out of scope #1 assumption
+                result[i] = Integer.parseInt(ballString);
             }
-
-            this.balls = result;
         }
+
+        this.balls = result;
     }
 
     private void calcTotal() {

@@ -13,12 +13,12 @@ public class Game {
     }
 
     private void parse(String input) {
-        Frame[] result = new Frame[10]; // Out of scope task #3 assumption of 10 frames per string
+        Frame[] result = new Frame[10]; // Out of scope task #3 assumes 10 frames per string
         String stringFrame = "";
         int currentFrame = 0;
 
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == 'X') {
+            if (input.charAt(i) == 'X' && i + 2 < input.length() - 1) {
                 result[currentFrame] = new Frame("X");
                 currentFrame++;
             } else {
