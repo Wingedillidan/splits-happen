@@ -7,7 +7,7 @@ public class Frame {
 
     // Each array position represents one ball down the lane
     private int[] balls;
-    private int rawTotal;
+    private int rawTotal; // The sum of the instantiated frame only, strikes and spares return 10
     private int numPins;
 
     public Frame(int[] balls, int numPins) {
@@ -54,6 +54,16 @@ public class Frame {
         }
 
         this.rawTotal = total;
+    }
+
+    public String toString() {
+        String result = "[ ";
+
+        for (int i: this.getBalls()) {
+            result += i + " ";
+        }
+
+        return result + "]";
     }
 
     public int[] getBalls() {

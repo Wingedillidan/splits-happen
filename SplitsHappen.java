@@ -1,5 +1,7 @@
 package main.java;
 
+import main.java.tests.GameTest;
+
 /**
  * Created by collinm on 6/6/17.
  */
@@ -15,6 +17,8 @@ public class SplitsHappen {
             System.out.println(game.toString());
             System.out.println("Total: " + game.getTotal());
         }
+
+        GameTest.testAll();
     }
 
 }

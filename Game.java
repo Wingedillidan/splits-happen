@@ -7,8 +7,8 @@ public class Game {
 
     private Frame[] frames;
     private int total;
-    private int numPins = 10;
-    private int numFrames = 10;
+    private final int numPins = 10;
+    private final int numFrames = 10;
 
     public Game(String raw) {
         parse(raw);
@@ -22,21 +22,22 @@ public class Game {
         for (int i = 0; i < input.length(); i++) {
             // Build string for a single frame
             if (input.charAt(i) == 'X' && i + 2 < input.length() - 1) {
-                // Non-tenth frame strikes are single frames
+                // Non-tenth frame strikes are single-shot frames
                 result[currentFrame] = new Frame("X", this.numPins);
                 currentFrame++;
+
+                continue;
             } else {
                 stringFrame += input.charAt(i);
             }
 
-            // Check for 10th frame, then finish the string
-            if (i + 1 == input.length() - 1) {
-                stringFrame += input.charAt(i + 1);
-                i++; // Make this iteration the last
-            }
-
             // Make the frame
             if (stringFrame.length() >= 2) {
+                if (i + 2 == input.length()) {
+                    // 10th frame, 3rd shot checking
+                    stringFrame += input.charAt(i + 1);
+                    i++; // Make this iteration the last
+                }
                 result[currentFrame] = new Frame(stringFrame, this.numPins);
                 currentFrame++;
                 stringFrame = "";
@@ -54,10 +55,10 @@ public class Game {
             int frameRawTotal = this.frames[i].getRawTotal();
 
             if (frameBalls[0] == this.numPins) {
-                // STRIKE!
+                // All the pins down in the first shot? STRIKE!
                 result += this.numPins + this.calcStrikeBonus(i);
             } else if (frameRawTotal == this.numPins) {
-                // SPARE.
+                // All the pins down in the sum of two shots? SPARE.
                 result += this.numPins + this.calcSpareBonus(i);
             } else {
                 result += frameRawTotal;
@@ -67,16 +68,18 @@ public class Game {
         this.total = result;
     }
 
+    // Bonus calculations return only the extra value earned from future frames
     private int calcStrikeBonus(int frameOfStrike) {
         // Note to self: THIS IS VALID FOR BASE-0 COUNTING ONLY
         int numFrames = this.frames.length - 1;
 
-        if (frameOfStrike < numFrames - 1) {
-            // Calculates bonuses that do not include the last frame
+        if (frameOfStrike <= numFrames - 2) {
+            // Calculates bonuses that do not require the last frame to calculate
             if (this.frames[frameOfStrike + 1].getBalls()[0] == this.numPins) {
-                // Checks if the next frame is also a strike
+                // If the next frame is also a strike, we need to get a shot from 2 frames ahead
                 return this.numPins + this.frames[frameOfStrike + 2].getBalls()[0];
             } else {
+                // The next frame is inclusive of 2 shots
                 return this.frames[frameOfStrike + 1].getRawTotal();
             }
         } else if (frameOfStrike == numFrames - 1) {
@@ -85,8 +88,7 @@ public class Game {
             int[] tenthFrameBalls = this.frames[numFrames].getBalls();
             return tenthFrameBalls[0] + tenthFrameBalls[1];
         } else {
-            // For if the last frame starts with a strike
-            // Subtracts total numPins as this calculates the bonus only
+            // If we're in the last frame, get the total of the 2 following shots only
             return this.frames[frameOfStrike].getRawTotal() - this.numPins;
         }
     }
@@ -103,12 +105,9 @@ public class Game {
 
     public String toString() {
         String result = "Bowling Game with Frames: ";
+
         for (Frame f: this.frames) {
-            result += "[ ";
-            for (int i: f.getBalls()) {
-                result += i + " ";
-            }
-            result += "]";
+            result += f.toString();
         }
 
         return result;
@@ -128,21 +127,5 @@ public class Game {
 
     public void setTotal(int total) {
         this.total = total;
-    }
-
-    public int getNumPins() {
-        return numPins;
-    }
-
-    public void setNumPins(int numPins) {
-        this.numPins = numPins;
-    }
-
-    public int getNumFrames() {
-        return numFrames;
-    }
-
-    public void setNumFrames(int numFrames) {
-        this.numFrames = numFrames;
     }
 }
