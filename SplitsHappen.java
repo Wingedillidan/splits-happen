@@ -7,10 +7,12 @@ public class SplitsHappen {
 
     public static void main(String[] args) {
         Game game;
+        String[] test = new String[]{"XXXXXXXXXXXX", "9-9-9-9-9-9-9-9-9-9-", "5/5/5/5/5/5/5/5/5/5/5", "X7/9-X-88/-6XXX81"};
 
-        String testOne = "XXXXXXXXXXXX";
-        game = new Game(testOne);
-        System.out.println(game.toString());
+        for (String s: test) {
+            game = new Game(s);
+            System.out.println(game.toString());
+        }
     }
 
 }
