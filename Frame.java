@@ -25,7 +25,7 @@ public class Frame {
     }
 
     private void parse(String parseMe) {
-        if (parseMe == "X") {
+        if (parseMe.equals("X")) {
             this.balls = new int[]{10};
         } else {
             int[] result = new int[parseMe.length()];
@@ -34,9 +34,16 @@ public class Frame {
                 if (parseMe.charAt(i) == '-') {
                     result[i] = 0;
                 } else if (parseMe.charAt(i) == '/') {
+                    // Luckily I don't have to worry about validation ;)
                     result[i] = 10 - result[i-1];
+                } else {
+                    // Same thing!
+                    String ballString = Character.toString(parseMe.charAt(i));
+                    result[i] = Integer.parseInt(ballString);
                 }
             }
+
+            this.balls = result;
         }
     }
 
