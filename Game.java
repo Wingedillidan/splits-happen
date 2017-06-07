@@ -41,4 +41,17 @@ public class Game {
         this.frames = result;
     }
 
+    public String toString() {
+        String result = "Bowling Game with Frames: ";
+        for (Frame f: this.frames) {
+            result += "[ ";
+            for (int i: f.getBalls()) {
+                result += i + " ";
+            }
+            result += "]";
+        }
+
+        return result;
+    }
+
 }
