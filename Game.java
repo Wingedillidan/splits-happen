@@ -61,14 +61,14 @@ public class Game {
     }
 
     private int calcStrikeBonus(int frameOfStrike) {
-        if (frameOfStrike < 9) {
+        if (frameOfStrike < 8) {
             if (this.frames[frameOfStrike + 1].getBalls()[0] == 10) {
-                return 10 + this.frames[frameOfStrike + 2].getBalls()[1];
+                return 10 + this.frames[frameOfStrike + 2].getBalls()[0];
             } else {
                 return this.frames[frameOfStrike + 1].getRawTotal();
             }
-        } else if (frameOfStrike == 9) {
-            int[] tenthFrameBalls = this.frames[10].getBalls();
+        } else if (frameOfStrike == 8) {
+            int[] tenthFrameBalls = this.frames[9].getBalls();
             return tenthFrameBalls[0] + tenthFrameBalls[1];
         } else {
             return this.frames[frameOfStrike].getRawTotal() - 10;
@@ -76,8 +76,8 @@ public class Game {
     }
 
     private int calcSpareBonus(int frameOfSpare) {
-        if (frameOfSpare < 10) {
-            return this.frames[frameOfSpare].getBalls()[0];
+        if (frameOfSpare < 9) {
+            return this.frames[frameOfSpare + 1].getBalls()[0];
         } else {
             return this.frames[frameOfSpare].getBalls()[2];
         }
