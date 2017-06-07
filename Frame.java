@@ -14,7 +14,7 @@ public class Frame {
         this.calcTotal();
     }
 
-    // A single string input indicates an input for parse
+    // Just a string indicates an input for parse
     public Frame(String parseMe) {
         // Parse logic separated in case of future changes to this type of constructor
         this.parse(parseMe);
@@ -23,14 +23,17 @@ public class Frame {
 
     private void parse(String parseMe) {
         if (parseMe.equals("X")) {
+            // Check strike
             this.balls = new int[]{10};
         } else {
             int[] result = new int[parseMe.length()];
 
             for (int i = 0; i < parseMe.length(); i++) {
                 if (parseMe.charAt(i) == '-') {
+                    // Check miss
                     result[i] = 0;
                 } else if (parseMe.charAt(i) == '/') {
+                    // Check spare
                     // Luckily I don't have to worry about validation ;)
                     result[i] = 10 - result[i-1];
                 } else {
@@ -44,7 +47,7 @@ public class Frame {
         }
     }
 
-    public void calcTotal() {
+    private void calcTotal() {
         int total = 0;
 
         for (int i: this.balls) {
