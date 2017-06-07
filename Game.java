@@ -41,6 +41,48 @@ public class Game {
         this.frames = result;
     }
 
+    public void calcGame() {
+        int result = 0;
+
+        for (int i = 0; i < this.frames.length; i++) {
+            int[] frameBalls = this.frames[i].getBalls();
+            int frameRawTotal = this.frames[i].getRawTotal();
+
+            if (frameBalls[0] == 10) {
+                result += 10 + this.calcStrikeBonus(i);
+            } else if (frameRawTotal == 10) {
+                result += 10 + this.calcSpareBonus(i);
+            } else {
+                result += frameRawTotal;
+            }
+        }
+
+        this.total = result;
+    }
+
+    private int calcStrikeBonus(int frameOfStrike) {
+        if (frameOfStrike < 9) {
+            if (this.frames[frameOfStrike + 1].getBalls()[0] == 10) {
+                return 10 + this.frames[frameOfStrike + 2].getBalls()[1];
+            } else {
+                return this.frames[frameOfStrike + 1].getRawTotal();
+            }
+        } else if (frameOfStrike == 9) {
+            int[] tenthFrameBalls = this.frames[10].getBalls();
+            return tenthFrameBalls[0] + tenthFrameBalls[1];
+        } else {
+            return this.frames[frameOfStrike].getRawTotal() - 10;
+        }
+    }
+
+    private int calcSpareBonus(int frameOfSpare) {
+        if (frameOfSpare < 10) {
+            return this.frames[frameOfSpare].getBalls()[0];
+        } else {
+            return this.frames[frameOfSpare].getBalls()[2];
+        }
+    }
+
     public String toString() {
         String result = "Bowling Game with Frames: ";
         for (Frame f: this.frames) {
