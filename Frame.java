@@ -5,23 +5,20 @@ package main.java;
  */
 public class Frame {
 
+    // Each array position represents one ball down the lane
     private int[] balls;
     private int totalBalls;
 
     public Frame(int[] balls) {
-
-        int total = 0;
-        for (int i: balls) {
-            total += i;
-        }
-
-        this.totalBalls = total;
+        this.balls = balls;
+        this.calcTotal();
     }
 
     // A single string input indicates an input for parse
     public Frame(String parseMe) {
         // Parse logic separated in case of future changes to this type of constructor
         this.parse(parseMe);
+        this.calcTotal();
     }
 
     private void parse(String parseMe) {
@@ -45,6 +42,16 @@ public class Frame {
 
             this.balls = result;
         }
+    }
+
+    public void calcTotal() {
+        int total = 0;
+
+        for (int i: this.balls) {
+            total += i;
+        }
+
+        this.totalBalls = total;
     }
 
     public int[] getBalls() {
